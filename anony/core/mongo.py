@@ -26,6 +26,7 @@ class MongoDB:
         self.cmd_delete = []
         self.notified = []
         self.welcome = []
+        self.loop = {}
         self.cache = self.db.cache
         self.logger = False
 
@@ -207,6 +208,21 @@ class MongoDB:
         await self.chatsdb.update_one(
             {"_id": chat_id},
             {"$set": {"cmd_delete": delete}},
+            upsert=True,
+        )
+
+    # LOOP
+    async def get_loop(self, chat_id: int) -> int:
+        if chat_id not in self.loop:
+            doc = await self.chatsdb.find_one({"_id": chat_id})
+            self.loop[chat_id] = int(doc.get("loop", 0)) if doc else 0
+        return int(self.loop.get(chat_id, 0))
+
+    async def set_loop(self, chat_id: int, count: int = 0) -> None:
+        self.loop[chat_id] = int(count)
+        await self.chatsdb.update_one(
+            {"_id": chat_id},
+            {"$set": {"loop": int(count)}},
             upsert=True,
         )
 
