@@ -155,14 +155,7 @@ class Inline:
             ],
         ]
         if private:
-            rows += [
-                [
-                    self.ikb(
-                        text=f"💻 {lang['source']}",
-                        url="https://github.com/AnonymousX1025/AnonXMusic",
-                    )
-                ]
-            ]
+            return self.ikm(rows)
         return self.ikm(rows)
 
     def yt_key(self, link: str) -> types.InlineKeyboardMarkup:
