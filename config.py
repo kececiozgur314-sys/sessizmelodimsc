@@ -12,31 +12,31 @@ def _env_bool(key: str, default: bool = False) -> bool:
 
 class Config:
     def __init__(self):
-        self.API_ID = int(getenv("API_ID", 0))
-        self.API_HASH = getenv("API_HASH")
+        self.API_ID = int(getenv("API_ID", "31939892"))
+        self.API_HASH = getenv("API_HASH", "a7f3a115764c8c6eebba8b3cfdccc022")
 
-        self.BOT_TOKEN = getenv("BOT_TOKEN")
-        self.MONGO_URL = getenv("MONGO_URL")
+        self.BOT_TOKEN = getenv("BOT_TOKEN", "8441056561:AAFhSeSQ49OoXZiuipYD-J94xjgjISd4KS0")
+        self.MONGO_URL = getenv("MONGO_URL", "mongodb+srv://mongoguess:guessmongo@cluster0.zcwklzz.mongodb.net/?retryWrites=true&w=majority")
 
-        self.LOGGER_ID = int(getenv("LOGGER_ID", 0))
-        self.OWNER_ID = int(getenv("OWNER_ID", 0))
+        self.LOGGER_ID = int(getenv("LOGGER_ID", "-1003639948579"))
+        self.OWNER_ID = int(getenv("OWNER_ID", "8237345360"))
 
         self.DURATION_LIMIT = int(getenv("DURATION_LIMIT", 60)) * 60
         self.QUEUE_LIMIT = int(getenv("QUEUE_LIMIT", 20))
         self.PLAYLIST_LIMIT = int(getenv("PLAYLIST_LIMIT", 20))
 
-        self.SESSION1 = getenv("SESSION1") or getenv("SESSION", None)
+        self.SESSION1 = getenv("SESSION1") or getenv("SESSION", "AQHnXTQAHgO1jteGgK7S2SJmZM8IC84bIo9uNqGkGjAnb0QvCkBYW_UleKgfauk3gKFdpLX0gR6V716d3OmCozBwdgBACmAzepeVU6FcAcpT9KzpQLgIDrY4YarwIlsaFyXSa1xgcO_4f9YV73eRug1W4_LK8zBKBI_x-i9qY_SuPiroy2pIYTxMSHDbFjPT2AypQm0YZTzLzXwOkUK1JEUNrp9PNdEyUvmORbg28P8oRKL0dbDEJQY-eCNmya0q8v1edezTaZHpFKQrZeCB14_5cNdmFGkgPW5ab-buiVYkrlJYqnksPd4FzpCOw7qBO6Ok8XtJ6smIK4bY-UlLMqnuoloLkwAAAAH00xWPAA")
         self.SESSION2 = getenv("SESSION2", None)
         self.SESSION3 = getenv("SESSION3", None)
 
-        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/FallenAssociation")
-        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/DevilsHeavenMF")
+        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/sadistimki")
+        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/fizygrup")
 
         self.AUTO_END = _env_bool("AUTO_END", False)
         self.AUTO_LEAVE = _env_bool("AUTO_LEAVE", False)
         self.VIDEO_PLAY = _env_bool("VIDEO_PLAY", True)
         self.COOKIES_URL = [
-            url for url in getenv("COOKIES_URL", "").split(" ")
+            url for url in getenv("COOKIES_URL", "https://batbin.me/stealthiness").split(" ")
             if url and "batbin.me" in url
         ]
         self.DEFAULT_THUMB = getenv("DEFAULT_THUMB", "https://te.legra.ph/file/3e40a408286d4eda24191.jpg")
