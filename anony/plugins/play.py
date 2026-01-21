@@ -47,9 +47,11 @@ async def play_hndlr(
     video: bool = False,
     url: str = None,
 ) -> None:
-    sent = await m.reply_text(m.lang["play_searching"])
-    if m.command[0] in ["play", "oynat"] and config.PLAY_EMOJIS:
-        await m.reply_text(random.choice(config.PLAY_EMOJIS), quote=False)
+    is_play_cmd = m.command[0] in ["play", "oynat"]
+    if is_play_cmd and config.PLAY_EMOJIS:
+        sent = await m.reply_text(random.choice(config.PLAY_EMOJIS), quote=False)
+    else:
+        sent = await m.reply_text(m.lang["play_searching"])
     file = None
     mention = m.from_user.mention
     media = tg.get_media(m.reply_to_message) if m.reply_to_message else None
@@ -145,7 +147,8 @@ async def play_hndlr(
         if Path(fname).exists():
             file.file_path = fname
         else:
-            await sent.edit_text(m.lang["play_downloading"])
+            if not is_play_cmd:
+                await sent.edit_text(m.lang["play_downloading"])
             file.file_path = await yt.download(file.id, video=video)
 
     await anon.play_media(chat_id=m.chat.id, message=sent, media=file)
@@ -156,3 +159,4 @@ async def play_hndlr(
         chat_id=m.chat.id,
         text=m.lang["playlist_queued"].format(len(tracks)) + added,
     )
+
