@@ -75,6 +75,7 @@
     "close": "Kapat",
     "help": "Yardım",
     "language": "Dil",
+    "channel": "Kanal",
     "playing": "Çalıyor",
     "processing": "İşleniyor...",
     "skipped": "Yayın atlandı",
@@ -108,6 +109,15 @@
     "demote_failed": "Bu kullanıcıyı düşüremedim.",
     "kick_done": "Kullanıcı atıldı: {0}",
     "kick_failed": "Bu kullanıcıyı atamadım.",
+    "help_0": "Yöneticiler",
+    "help_1": "Yetki",
+    "help_2": "Kara Liste",
+    "help_3": "Dil",
+    "help_4": "Ping",
+    "help_5": "Oynat",
+    "help_6": "Kuyruk",
+    "help_7": "İstatistik",
+    "help_8": "Sudo",
     "givelink_done": "{0} için davet linki:\n{1}",
     "givelink_failed": "Davet linki oluşturulamadı.",
     "link_usage": "Kullanım: /link <group_id>",
@@ -138,4 +148,3 @@
     "voice_chat_invited": "👤 {inviter}, {invited} kişisini sesli sohbete davet etti.",
     "unknown_user": "Bilinmeyen"
 }
-
