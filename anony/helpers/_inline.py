@@ -154,13 +154,13 @@ class Inline:
         self, lang: dict, private: bool = False
     ) -> types.InlineKeyboardMarkup:
         if private:
-        rows = [
-            [
-                self.ikb(
+            rows = [
+                [
+                    self.ikb(
                         text=lang.get("S_B_1", lang["add_me"]),
-                    url=f"https://t.me/{app.username}?startgroup=true",
-                )
-            ],
+                        url=f"https://t.me/{app.username}?startgroup=true",
+                    )
+                ],
                 [
                     self.ikb(
                         text=lang.get("S_B_7", lang.get("source", "Owner")),
