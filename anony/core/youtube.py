@@ -116,31 +116,43 @@ class YouTube:
             "no_warnings": True,
             "overwrites": False,
             "nocheckcertificate": True,
-            "cookiefile": cookie,
+            "retries": 3,
+            "fragment_retries": 3,
+            "socket_timeout": 15,
         }
+        if cookie:
+            base_opts["cookiefile"] = cookie
 
         if video:
-            ydl_opts = {
-                **base_opts,
-                "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio)",
-                "merge_output_format": "mp4",
-            }
+            formats = [
+                "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
+                "bestvideo[height<=?720]+bestaudio/best[height<=?720]",
+            ]
+            ydl_opts_list = [
+                {**base_opts, "format": f, "merge_output_format": "mp4"}
+                for f in formats
+            ]
         else:
-            ydl_opts = {
-                **base_opts,
-                "format": "bestaudio[ext=webm][acodec=opus]",
-            }
+            formats = [
+                "bestaudio[ext=webm][acodec=opus]",
+                "bestaudio[ext=m4a]/bestaudio",
+            ]
+            ydl_opts_list = [{**base_opts, "format": f} for f in formats]
 
         def _download():
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                try:
-                    ydl.download([url])
-                except (yt_dlp.utils.DownloadError, yt_dlp.utils.ExtractorError):
-                    if cookie: self.cookies.remove(cookie)
-                    return None
-                except Exception as ex:
-                    logger.warning("Download failed: %s", ex)
-                    return None
-            return filename
+            for ydl_opts in ydl_opts_list:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    try:
+                        ydl.download([url])
+                        if Path(filename).exists():
+                            return filename
+                    except (yt_dlp.utils.DownloadError, yt_dlp.utils.ExtractorError):
+                        continue
+                    except Exception as ex:
+                        logger.warning("Download failed: %s", ex)
+                        continue
+            if cookie and cookie in self.cookies:
+                self.cookies.remove(cookie)
+            return None
 
         return await asyncio.to_thread(_download)
