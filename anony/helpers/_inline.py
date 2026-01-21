@@ -46,7 +46,7 @@ class Inline:
             )
         keyboard.append(
             [self.ikb(text="◉ kapat ◉", callback_data=f"controls close {chat_id}")]
-        )
+            )
         return self.ikm(keyboard)
 
     def help_markup(
@@ -70,11 +70,26 @@ class Inline:
         return self.ikm(rows)
 
     def lang_markup(self, _lang: str) -> types.InlineKeyboardMarkup:
+        flags = {
+            "ar": "🇸🇦",
+            "de": "🇩🇪",
+            "en": "🇬🇧",
+            "es": "🇪🇸",
+            "fr": "🇫🇷",
+            "hi": "🇮🇳",
+            "ja": "🇯🇵",
+            "my": "🇲🇲",
+            "pa": "🇵🇰",
+            "pt": "🇵🇹",
+            "ru": "🇷🇺",
+            "tr": "🇹🇷",
+            "zh": "🇨🇳",
+        }
         langs = lang.get_languages()
 
         buttons = [
             self.ikb(
-                text=f"{name} ({code}) {'✔️' if code == _lang else ''}",
+                text=f"{flags.get(code, '🏳️')} {name} ({code}) {'✔️' if code == _lang else ''}",
                 callback_data=f"lang_change {code}",
             )
             for code, name in langs.items()
@@ -139,13 +154,13 @@ class Inline:
         self, lang: dict, private: bool = False
     ) -> types.InlineKeyboardMarkup:
         if private:
-            rows = [
-                [
-                    self.ikb(
+        rows = [
+            [
+                self.ikb(
                         text=lang.get("S_B_1", lang["add_me"]),
-                        url=f"https://t.me/{app.username}?startgroup=true",
-                    )
-                ],
+                    url=f"https://t.me/{app.username}?startgroup=true",
+                )
+            ],
                 [
                     self.ikb(
                         text=lang.get("S_B_7", lang.get("source", "Owner")),
