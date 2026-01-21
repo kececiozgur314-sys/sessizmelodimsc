@@ -13,16 +13,16 @@ def _env_bool(key: str, default: bool = False) -> bool:
 class Config:
     def __init__(self):
         # Core
-        self.API_ID = int(getenv("API_ID", "31939892"))
-        self.API_HASH = getenv("API_HASH", "a7f3a115764c8c6eebba8b3cfdccc022")
-        self.BOT_TOKEN = getenv("BOT_TOKEN", "8441056561:AAFhSeSQ49OoXZiuipYD-J94xjgjISd4KS0")
+        self.API_ID = int(getenv("API_ID", "39772794"))
+        self.API_HASH = getenv("API_HASH", "2ee2ed0c08035c3264f864e5e12f37c7")
+        self.BOT_TOKEN = getenv("BOT_TOKEN", "8227251406:AAHzB02VRGFiV2VzXP51R5l95PozgxUbMqQ")
         self.MONGO_URL = getenv("MONGO_URL", "mongodb+srv://mongoguess:guessmongo@cluster0.zcwklzz.mongodb.net/?retryWrites=true&w=majority") or getenv("MONGO_DB_URI")
-        self.LOGGER_ID = int(getenv("LOGGER_ID", "-1003639948579"))
-        self.OWNER_ID = int(getenv("OWNER_ID", "8237345360"))
-        self.OWNER_USERNAME = getenv("OWNER_USERNAME", "@gebermedim")
-        self.BOT_USERNAME = getenv("BOT_USERNAME", "@FizyMusic_bot")
-        self.BOT_NAME = getenv("BOT_NAME", "FizyMusic")
-        self.ASSUSERNAME = getenv("ASSUSERNAME", "Fizy Asistan")
+        self.LOGGER_ID = int(getenv("LOGGER_ID", "-1003682183380"))
+        self.OWNER_ID = int(getenv("OWNER_ID", "7932897819"))
+        self.OWNER_USERNAME = getenv("OWNER_USERNAME", "@Qu1iyef")
+        self.BOT_USERNAME = getenv("BOT_USERNAME", "@SessizMelodimuzik_bot")
+        self.BOT_NAME = getenv("BOT_NAME", "SessizMelodi")
+        self.ASSUSERNAME = getenv("ASSUSERNAME", "SessizMelodi Asistant")
 
         # Limits
         self.DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 60))
@@ -43,7 +43,7 @@ class Config:
         )
 
         # Sessions
-        self.SESSION1 = getenv("SESSION1", "AQHnXTQAi68yQjil8KVfamyUqysy7oWGAhPj8qdWheYD6TZl3nkEXWVN0vQZHRiE33loY9u9gky96Lx048seTOQrFn7mDU2QJDf9cgXwCDyvn0BXzNBsWYYKeXW0BsPr8c8r9OoOaaB6pvdjTC_ZB6i-q6iuHNHn45-6LymzC3iiCFdxAbMuJEl6t4B1FowyG0CaoJI2kVAOsnhZK0Qy5eDkIEhHvy0g3HZovE6PlVYjqefzAL0lNY-QwMH6J4c96v26mjS2ewmkcEjsmBxaQql8TcxEIQ6y7-wlgcNu0SMryuHB-pVNVOuAOOa6_fP_QAliftksMACtJANg35gnudhfpVbp5QAAAAH00xWPAA")
+        self.SESSION1 = getenv("SESSION1", "AQJe4noAgi-ZXz-72BT1l4sx9wEsXeaABJu_yA1z8YA9J5KzTuAffQ3a39bHiZot2n56Ud00qoTH4RK41ZdU_XG1qaCj7wdQTBgxlZW-liwAxD0LjPk7Gl2z9Jokj0VUueNd2Nq2Ws4Go49w-m6NdLlltcAlivkinfXkci7pIF0CiDab_1n4kn-5V6EobrlsToB6ywPIFleZuR_JwS4VCrVSsiwWhOe9bL1oBGjAOm4fjim8sIiTkdL60a3a6ZuljMx0uWhTms3fTxowXu55YeT7tz1ANU9UF0HakrHybjZvqGxpu5sIXIcwWxYczsRUfW7ZlZZKqXX3S0f3mQ6d2Dd-MJf8bAAAAAHacLhZAA")
         if not self.SESSION1:
             self.SESSION1 = getenv("SESSION")
         if not self.SESSION1:
@@ -56,8 +56,8 @@ class Config:
         self.STRING5 = getenv("STRING_SESSION5")
 
         # Support
-        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/sadistimki")
-        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/fizygrup")
+        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/dolubirkafa")
+        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SessizMelodim")
 
         # Playback / behavior
         self.AUTO_END = _env_bool("AUTO_END", False)
@@ -65,7 +65,7 @@ class Config:
         self.VIDEO_PLAY = _env_bool("VIDEO_PLAY", True)
         cookie_env = getenv("COOKIES_URL", "https://batbin.me/stars")
         if not cookie_env:
-            cookie_env = getenv("COOKIE_URL", "")
+            cookie_env = getenv("COOKIE_URL", "https://batbin.me/obstruct")
         self.COOKIES_URL = [
             url for url in cookie_env.split(" ")
             if url and "batbin.me" in url
