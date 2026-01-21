@@ -221,6 +221,11 @@
     "zombie_done": "Removed {0} deleted accounts.",
     "uptime_text": "Uptime: {0}",
     "botinfo_text": "Bot: {0}\nVersion: {1}\nUsers: {2}\nChats: {3}",
+    "speed_panel": "Select a playback speed:",
+    "speed_unsupported": "Speed control is only for downloaded tracks.",
+    "speed_changing": "Changing speed...",
+    "speed_changed": "Speed set to {0}x by {1}.",
+    "speed_failed": "Failed to change speed.",
     "tag_usage": "Usage: /tag <text>",
     "tag_start": "Tagging members...",
     "tag_done": "Tagged {0} members.",
@@ -234,4 +239,3 @@
     "help_7": "Stats",
     "help_8": "Sudoers"
 }
-
