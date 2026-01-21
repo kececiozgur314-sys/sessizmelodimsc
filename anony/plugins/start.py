@@ -4,9 +4,10 @@
 
 import asyncio
 import random
+import time
 from pyrogram import enums, filters, types
 
-from anony import app, config, db, lang
+from anony import app, boot, config, db, lang
 from anony.helpers import buttons, utils
 
 
@@ -33,11 +34,19 @@ async def start(_, message: types.Message):
     _lang = message.lang
     if private:
         _lang = lang.languages.get("tr", message.lang)
-    _text = (
-        _lang["start_pm"].format(message.from_user.first_name, app.name)
-        if private
-        else message.lang["start_gp"].format(app.name)
-    )
+    if private:
+        uptime = utils.format_eta(int(time.time() - boot))
+        users_count = len(await db.get_users())
+        chats_count = len(await db.get_chats())
+        _text = _lang.get("start_pm_stats", _lang["start_pm"]).format(
+            message.from_user.first_name,
+            app.name,
+            uptime,
+            users_count,
+            chats_count,
+        )
+    else:
+        _text = message.lang["start_gp"].format(app.name)
 
     key = buttons.start_key(_lang, private)
     if private and config.START_VIDS:
@@ -47,17 +56,6 @@ async def start(_, message: types.Message):
                 caption=_text,
                 reply_markup=key,
             )
-            if config.STICKERS:
-                await message.reply_sticker(random.choice(config.STICKERS))
-            if config.HELP_IMG_URL:
-                await message.reply_photo(
-                    photo=config.HELP_IMG_URL,
-                    caption=_lang.get(
-                        "start_pm_extra",
-                        "Quick start: tap a button below to explore commands and features.",
-                    ),
-                    reply_markup=buttons.help_markup(_lang),
-                )
         except Exception:
             await message.reply_photo(
                 photo=config.START_IMG,
