@@ -48,6 +48,8 @@ async def _vc_invited(_, m: types.Message):
 async def auto_leave():
     while True:
         await asyncio.sleep(1800)
+        if not await db.get_auto_leave():
+            continue
         for ub in userbot.clients:
             left = 0
             try:
@@ -123,6 +125,8 @@ async def update_timer(length=10):
 async def vc_watcher(sleep=15):
     while True:
         await asyncio.sleep(sleep)
+        if not await db.get_auto_end():
+            continue
         for chat_id in list(db.active_calls):
             client = await db.get_assistant(chat_id)
             media = queue.get_current(chat_id)
@@ -143,9 +147,7 @@ async def vc_watcher(sleep=15):
                     pass
 
 
-if config.AUTO_END:
-    tasks.append(asyncio.create_task(vc_watcher()))
-if config.AUTO_LEAVE:
-    tasks.append(asyncio.create_task(auto_leave()))
+tasks.append(asyncio.create_task(vc_watcher()))
+tasks.append(asyncio.create_task(auto_leave()))
 tasks.append(asyncio.create_task(track_time()))
 tasks.append(asyncio.create_task(update_timer()))
