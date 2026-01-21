@@ -27,6 +27,8 @@ class MongoDB:
         self.notified = []
         self.welcome = []
         self.loop = {}
+        self.auto_end = config.AUTO_END
+        self.auto_leave = config.AUTO_LEAVE
         self.cache = self.db.cache
         self.logger = False
 
@@ -280,6 +282,39 @@ class MongoDB:
             upsert=True,
         )
 
+    # AUTO END/LEAVE
+    async def get_auto_end(self) -> bool:
+        doc = await self.cache.find_one({"_id": "auto_end"})
+        if doc is None:
+            await self.set_auto_end(self.auto_end)
+            return self.auto_end
+        self.auto_end = bool(doc.get("status", False))
+        return self.auto_end
+
+    async def set_auto_end(self, status: bool) -> None:
+        self.auto_end = bool(status)
+        await self.cache.update_one(
+            {"_id": "auto_end"},
+            {"$set": {"status": self.auto_end}},
+            upsert=True,
+        )
+
+    async def get_auto_leave(self) -> bool:
+        doc = await self.cache.find_one({"_id": "auto_leave"})
+        if doc is None:
+            await self.set_auto_leave(self.auto_leave)
+            return self.auto_leave
+        self.auto_leave = bool(doc.get("status", False))
+        return self.auto_leave
+
+    async def set_auto_leave(self, status: bool) -> None:
+        self.auto_leave = bool(status)
+        await self.cache.update_one(
+            {"_id": "auto_leave"},
+            {"$set": {"status": self.auto_leave}},
+            upsert=True,
+        )
+
     # PLAY MODE METHODS
     async def get_play_mode(self, chat_id: int) -> bool:
         if chat_id not in self.admin_play:
@@ -386,4 +421,6 @@ class MongoDB:
         await self.get_users()
         await self.get_blacklisted(True)
         await self.get_logger()
+        await self.get_auto_end()
+        await self.get_auto_leave()
         logger.info("Database cache loaded.")
