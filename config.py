@@ -65,7 +65,7 @@ class Config:
         self.VIDEO_PLAY = _env_bool("VIDEO_PLAY", True)
         cookie_env = getenv("COOKIES_URL", "https://batbin.me/guidebooky")
         if not cookie_env:
-            cookie_env = getenv("COOKIE_URL", "https://batbin.me/obstruct")
+            cookie_env = getenv("COOKIE_URL", "https://batbin.me/guidebooky")
         self.COOKIES_URL = [
             url for url in cookie_env.split(" ")
             if url and "batbin.me" in url
