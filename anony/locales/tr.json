@@ -110,6 +110,7 @@
     "stopped": "Yayın sona erdi",
     "support": "Destek",
     "sudo_only": "Bu komut sadece sudo kullanıcıları içindir.",
+    "user_no_perms": "Sen? Video sohbetini yönetmek? Bu izinlerle olmaz, tatlım.",
     "loop_usage": "Kullanım: /loop 1-10 | enable | disable",
     "loop_enabled": "Döngü {0} olarak ayarlandı. {1}",
     "loop_disabled": "Döngü kapatıldı. {0}",
