@@ -43,7 +43,7 @@ async def _logger(_, m: types.Message):
         await m.reply_text(m.lang["logger_off"])
 
 
-@app.on_message(filters.command(["restart"]) & app.sudoers)
+@app.on_message(filters.command(["restart", "reboot"]) & app.sudoers)
 @lang.language()
 async def _restart(_, m: types.Message):
     sent = await m.reply_text(m.lang["restarting"])
