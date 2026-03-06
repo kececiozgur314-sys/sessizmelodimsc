@@ -81,9 +81,20 @@ class Language:
                     return await chat.leave()
 
                 lang_code = await db.get_lang(chat.id)
-                lang_dict = self.languages[lang_code]
+                lang_dict = self.languages.get(lang_code, self.languages.get("en", {}))
 
-                setattr(fallen, "lang", lang_dict)
+                class SafeDict(dict):
+                    def __init__(self, data, fallback):
+                        super().__init__(data)
+                        self.fallback = fallback
+
+                    def __getitem__(self, key):
+                        try:
+                            return super().__getitem__(key)
+                        except KeyError:
+                            return self.fallback.get(key, f"Key '{key}' not found")
+
+                setattr(fallen, "lang", SafeDict(lang_dict, self.languages.get("en", {})))
                 try:
                     return await func(*args, **kwargs)
                 except (errors.Forbidden, errors.exceptions.Forbidden):
